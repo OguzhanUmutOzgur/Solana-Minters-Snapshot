@@ -17,7 +17,7 @@ npm install
 ```
 
 ## Usage
-- Copy the list of tokens in **`hashlist/hashlist.json`** in form of [JSON Array](https://www.javatpoint.com/json-array).
+- Copy and paste the list of tokens in **`hashlist/hashlist.json`** in form of [JSON Array](https://www.javatpoint.com/json-array) or directly replace with your JSON file (with same name).
 
 - Use `ts-node index.ts` in terminal.
 
