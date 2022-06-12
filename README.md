@@ -29,7 +29,7 @@ ts-node index.ts --program-id DVWiM21gcNvyNq7G3UUUwsxWQzK3FbCoimUum9xTaj6 --rpc-
 ## Options
 You can use all of above options together. Make sure to read carefully.
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Program Id
-Depending on where you minted your tokens, you may need to pass the program id. The script currently can take into account popular programs such as **`Candy Machine V2`**. You can see defined program ids in **`./constants.ts`**.
+Depending on where you minted your tokens, you may need to pass the program id. The script currently can take into account popular programs such as **`Candy Machine V2`**. You can see defined program ids in [`./constants.ts`](https://github.com/OguzhanUmutOzgur/Solana-Minters-Snapshot/blob/master/constants.ts).
 
 You can check the program id of your NFTs in any transaction explorer ([SolScan](https://solscan.io/), [Solana Explorer](https://explorer.solana.com/))
 
