@@ -21,6 +21,11 @@ npm install
 
 - Use `ts-node index.ts` in terminal.
 
+### Example usage 
+```
+ts-node index.ts --program-id DVWiM21gcNvyNq7G3UUUwsxWQzK3FbCoimUum9xTaj6 --rpc-url https://solana-api.projectserum.com --drop-amount 0.45 --request-delay 250
+```
+
 ## Options
 You can use all of above options together. Make sure to read carefully.
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Program Id
