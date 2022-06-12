@@ -2,9 +2,9 @@ import * as web3 from '@solana/web3.js';
 import fs = require('fs');
 import candyMachineProgramIDs from './constants';
 
-export function getConnection(rpc_url: string) {
+export function getConnection(rpcURL: string) {
     return new web3.Connection(
-        rpc_url,
+        rpcURL,
         'confirmed'
     );
 }
@@ -44,22 +44,22 @@ export function saveAirdropPlan(
             fs.mkdirSync('./output');
         }
 
-        const airdrop_plan: Array<{address: string, amount: number}> = [];
+        const airdropPlan: Array<{address: string, amount: number}> = [];
 
         minters.forEach((minter) => {
             var addressIndex: number | undefined = undefined;
 
-            for (let index = 0; index < airdrop_plan.length; index++) {
-                if(airdrop_plan[index].address == minter.minter){
+            for (let index = 0; index < airdropPlan.length; index++) {
+                if(airdropPlan[index].address == minter.minter){
                     addressIndex = index;
                 }
             }
 
             if(addressIndex !== undefined){
-                airdrop_plan[addressIndex].amount += dropAmount;
+                airdropPlan[addressIndex].amount += dropAmount;
             }
             else {
-                airdrop_plan.push({
+                airdropPlan.push({
                     address: minter.minter,
                     amount: dropAmount
                 });
@@ -68,7 +68,7 @@ export function saveAirdropPlan(
 
         fs.writeFileSync(
             './output/airdrop-plan.json',
-            JSON.stringify(airdrop_plan)
+            JSON.stringify(airdropPlan)
         );
         return true;
     }
@@ -101,4 +101,8 @@ export function readHashlistFile(): Array<string> {
     const hashlist: Array<string> = JSON.parse(jsonString);
 
     return hashlist;
+}
+
+export async function sleep(delay: number){
+    await new Promise(resolve => setTimeout(resolve, delay)); //Avoid over heating the RPC.
 }

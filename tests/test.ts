@@ -1,4 +1,4 @@
-import { getConnection, isMintTransaction, readHashlistFile } from "../functions";
+import { getConnection, isMintTransaction, readHashlistFile, sleep } from "../functions";
 import * as web3 from '@solana/web3.js';
 
 const assert = require('assert');
@@ -22,15 +22,25 @@ async function testMints(){
         const confirmedTxs = await connection.getConfirmedSignaturesForAddress2(
             new web3.PublicKey(nfts[nft]['mint'])
         );
+        sleep(200)//Avoid over heating the RPC.
+
+        //Sort by blockTime because mint transaction is most likely to be the very first or second transaction
+        confirmedTxs.sort((txA, txB) => {
+            return (txA.blockTime && txB.blockTime) ? 
+                (txA.blockTime > txB.blockTime ? 1 : -1): 
+                0;
+        });
 
         for (const confirmedTx of confirmedTxs) {
             const transaction = await connection.getTransaction(confirmedTx.signature);
+            sleep(200)//Avoid over heating the RPC.
 
             if (isMintTransaction(transaction)) {
                 const minter = transaction.transaction.message.accountKeys[0];
                 if (minter.toBase58() == nfts[nft]['minter']) {
                     nfts[nft]['result'] = true;
                 }
+                break;
             }
         }
     }

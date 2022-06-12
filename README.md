@@ -41,6 +41,13 @@ Minter snapshot is an heavy task and makes requests to Solana RPCs. I highly rec
 ts-node index.ts --rpc-ul <rpc url>
 ```
 
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Delay
+You can set the delay between each RPC calls to avoid getting time-outed. I would suggest at least 250ms if you are using a public one.
+
+```
+ts-node index.ts --request-delay <milliseconds>
+```
+
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Airdrop plan
 If you are taking this snapshot make an airdrop. 
 
@@ -50,4 +57,9 @@ You can use drop option which takes an amount as parameter and creates a JSON fi
 ts-node index.ts --drop-amount <amount>
 ```
 
+## Test
+You can test 2 NFTs (DeGod #8252 and Galactic Gecko #3682) in before hand to see if script works correctly. 
 
+```
+npm run test
+```
