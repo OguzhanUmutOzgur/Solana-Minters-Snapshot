@@ -25,6 +25,13 @@ const hashlist = readHashlistFile();
 
     for (const hash of hashlist) {
         const confirmedTxs = await connection.getConfirmedSignaturesForAddress2(new web3.PublicKey(hash));
+        
+        //Sort by blockTime because mint transaction is most likely to be the very first or second transaction
+        confirmedTxs.sort((txA, txB) => {
+            return (txA.blockTime && txB.blockTime) ? 
+                (txA.blockTime > txB.blockTime ? 1 : -1): 
+                0;
+        });
 
         for (const confirmedTx of confirmedTxs) {
             const transaction = await connection.getTransaction(confirmedTx.signature);
@@ -39,6 +46,7 @@ const hashlist = readHashlistFile();
                     minter: minter.toBase58(),
                     txId: confirmedTx.signature
                 });
+                break;
             }
         }
         isTxFound ? 
