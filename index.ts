@@ -13,8 +13,8 @@ program.parse();
 const options = program.opts();
 if (options.programId) { candyMachineProgramIDs.push(options.programId); };
 
-const rpc_url = options.rpcUrl || web3.clusterApiUrl('mainnet-beta');
-const airdrop_amount = options.dropAmount || undefined;
+const rpc_url: string = options.rpcUrl || web3.clusterApiUrl('mainnet-beta');
+const airdrop_amount: number | undefined = options.dropAmount || undefined;
 /***********************/
 
 const minters: Array<{ mint: string, minter: string, txId: string }> = [];
@@ -28,9 +28,12 @@ const hashlist = readHashlistFile();
 
         for (const confirmedTx of confirmedTxs) {
             const transaction = await connection.getTransaction(confirmedTx.signature);
+            var isTxFound = false;
+            await new Promise(resolve => setTimeout(resolve, 200)); //Avoid over heating the RPC.
 
             if (isMintTransaction(transaction)) {
                 const minter = transaction.transaction.message.accountKeys[0];
+                isTxFound = true;
                 minters.push({
                     mint: hash,
                     minter: minter.toBase58(),
@@ -38,11 +41,19 @@ const hashlist = readHashlistFile();
                 });
             }
         }
+        isTxFound ? 
+            console.log(`\tFetched information for ${hash}`) : 
+            console.log(`\tCouldn't find the mint transaction. Please check Program Id option in README`);
     }
 
 })().finally(() => {
     saveMinterSnapshot(minters) ?
-        console.log('Snapshot saved successfully') :
-        console.log('There has been an error while trying to save snapshot');
-    airdrop_amount ? saveAirdropPlan(minters, airdrop_amount) : () => { console.log('Skipping airdrop plan');};
+        console.log('\n\tSnapshot saved successfully') :
+        console.log('\n\tThere has been an error while trying to save snapshot');
+
+    if(airdrop_amount !== undefined){
+        saveAirdropPlan(minters, airdrop_amount) ?
+            console.log('\tAirdrop plan saved successfully') :
+            console.log('\tThere has been an error while trying to save airdrop plan');
+    }
 });
