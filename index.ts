@@ -15,7 +15,7 @@ const options = program.opts();
 if (options.programId) { candyMachineProgramIDs.push(options.programId); };
 
 const rpcURL: string = options.rpcUrl || web3.clusterApiUrl('mainnet-beta');
-const airdropAmount: number | undefined = options.dropAmount || undefined;
+const airdropAmount: number | undefined = parseFloat(options.dropAmount) || undefined;
 const rpcCallDelay: number = options.requestDelay || 100;
 /***********************/
 
