@@ -43,7 +43,7 @@ ts-node index.ts --program-id <program id>
 Minter snapshot is an heavy task and makes requests to Solana RPCs. I highly recommend using a **CUSTOM RPC**.
 
 ```
-ts-node index.ts --rpc-ul <rpc url>
+ts-node index.ts --rpc-url <rpc url>
 ```
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Delay
@@ -54,7 +54,7 @@ ts-node index.ts --request-delay <milliseconds>
 ```
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Airdrop plan
-If you are taking this snapshot make an airdrop. 
+If you are taking this snapshot to make an airdrop. 
 
 You can use drop option which takes an amount as parameter and creates a JSON file with unique addresses and summed up amounts.
 
